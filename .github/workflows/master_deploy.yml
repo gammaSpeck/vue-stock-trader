@@ -28,7 +28,7 @@ jobs:
         run: |
           git config --global user.email madhukm3141@gmail.com
           git config --global user.name gammaSpeck
-          git remote set-url origin https://${{secrets.CICD_ACCESS_TOKEN}}@github.com/gammaSpeck/vue-stock-trader.git
+          git remote set-url origin https://gammaSpeck:${{secrets.CICD_ACCESS_TOKEN}}@github.com/gammaSpeck/vue-stock-trader.git
           yarn run deploy
       # - name: Updating Domain
       #   run: echo "Update domain"
