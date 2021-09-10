@@ -18,11 +18,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install YARN globally
-        run: npm install -g yarn
-
-      - name: Install Packages
-        run: yarn install
+      - name: Install dependencies and Build App
+        run: |
+          npm install -g yarn
+          yarn install
+          yarn build
 
       - name: Deploy to GH Pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
