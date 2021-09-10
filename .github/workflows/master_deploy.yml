@@ -1,0 +1,32 @@
+name: MasterDeployCI
+on: [workflow_dispatch]
+#   push:
+#     branches:
+#       - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x]
+    steps:
+      - name: Checking out latest code
+        uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+        run: npm install -g yarn
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Deploy to GH Pages
+        run: |
+          git config --global user.email madhukm3141@gmail.com
+          git config --global user.name gammaSpeck
+          git remote set-url origin https://${{secrets.CICD_ACCESS_TOKEN}}@github.com/gammaSpeck/vue-stock-trader.git
+          yarn run deploy
+      # - name: Updating Domain
+      #   run: echo "Update domain"
