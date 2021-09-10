@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [14.x]
     steps:
-      - name: Checking out latest code
-        uses: actions/checkout@v1
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -24,11 +24,8 @@ jobs:
       - name: Install Packages
         run: yarn install
 
-      - name: Deploy to GH Pages
-        run: |
-          git config --global user.email madhukm3141@gmail.com
-          git config --global user.name gammaSpeck
-          git remote set-url origin https://gammaSpeck:${{secrets.CICD_ACCESS_TOKEN}}@github.com/gammaSpeck/vue-stock-trader.git
-          yarn run deploy
-      # - name: Updating Domain
-      #   run: echo "Update domain"
+      - name: Deploy to GH Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
