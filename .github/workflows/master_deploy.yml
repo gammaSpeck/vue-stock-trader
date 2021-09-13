@@ -24,6 +24,9 @@ jobs:
           yarn install
           yarn build
 
+      - name: Post Build script
+        run: sh scripts/post-build.sh
+
       - name: Deploy to GH Pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
